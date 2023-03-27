@@ -30,7 +30,6 @@ class UserStoreRequest extends FormRequest
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'role' => ['required'],
-            'branch_id' => ['required'],
             'user_avatar' => ['nullable', 'image', 'mimes:jpg,png,jpeg', 'max:2048'],
         ];
     }

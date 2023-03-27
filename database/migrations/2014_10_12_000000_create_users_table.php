@@ -21,7 +21,6 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->rememberToken();
 
-            $table->foreignId('branch_id')->nullable()->constrained('branches');
             $table->foreignId('user_id')->nullable()->constrained('users');
             $table->timestamps();
         });

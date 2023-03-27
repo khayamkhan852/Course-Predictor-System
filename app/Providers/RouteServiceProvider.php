@@ -17,7 +17,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    public const HOME = 'admin/dashboard';
+    public const HOME = '/dashboard';
 
     /**
      * The controller namespace for the application.
@@ -44,12 +44,6 @@ class RouteServiceProvider extends ServiceProvider
                 ->group(base_path('routes/api.php'));
 
             $this->mapRoute('routes/web.php');
-            $this->mapRoute('routes/khayam_routes.php');
-            $this->mapRoute('routes/babar_routes.php');
-            $this->mapRoute('routes/asad_routes.php');
-            $this->mapRoute('routes/umar_routes.php');
-            $this->mapRoute('routes/imran_routes.php');
-            $this->mapRoute('routes/mazhar_routes.php');
         });
     }
 

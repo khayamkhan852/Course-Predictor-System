@@ -1,7 +1,7 @@
 @extends('auth.Layouts.app')
 @section('title', 'Register')
 @section('content')
-    <form class="form w-100" method="POST" action="{{ route('register') }}">
+    <form class="form w-100" action="{{ route('register.store') }}" method="POST">
         @csrf
         <div class="text-center mb-8">
             <h1 class="text-dark fw-bolder mb-3">Sign Up</h1>
