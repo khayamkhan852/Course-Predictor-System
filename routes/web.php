@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\DropZoneFileController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
@@ -27,6 +28,8 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('users', UserController::class);
 
     });
+
+    Route::resource('departments', DepartmentController::class);
 
 });
 

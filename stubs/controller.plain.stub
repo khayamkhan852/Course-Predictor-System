@@ -52,10 +52,10 @@ class {{ class }} extends Controller
 
         if ($output) {
             alert()->success('title', 'description');
-            return redirect()->route('');
+            return redirect()->route('.index');
         }
-        alert()->success('title', 'description');
-        return redirect()->route('');
+        alert()->error('error', 'something went wrong');
+       return redirect()->route('.index');
     }
 
     /**
@@ -103,10 +103,10 @@ class {{ class }} extends Controller
 
         if ($output) {
             alert()->success('title', 'description');
-            return redirect()->route('');
+            return redirect()->route('.index');
         }
-        alert()->success('title', 'description');
-        return redirect()->route('');
+        alert()->error('error', 'something went wrong');
+       return redirect()->route('.index');
     }
 
     /**
@@ -129,9 +129,9 @@ class {{ class }} extends Controller
 
         if ($output) {
             alert()->success('title', 'description');
-            return redirect()->route('');
+            return redirect()->route('.index');
         }
-        alert()->success('title', 'description');
-        return redirect()->route('');
+        alert()->error('error', 'something went wrong');
+        return redirect()->route('.index');
     }
 }
