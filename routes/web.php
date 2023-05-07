@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CourseController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\DropZoneFileController;
@@ -7,9 +8,6 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SectionController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
-
-
-
 
 require __DIR__.'/auth.php';
 
@@ -33,6 +31,10 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resource('departments', DepartmentController::class);
 
+    Route::prefix('courses')->name('courses.')->group(function () {
+
+    });
+    Route::resource('courses', CourseController::class);
 });
 
 

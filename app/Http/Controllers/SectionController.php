@@ -15,7 +15,7 @@ class SectionController extends Controller
     {
         $this->middleware(function ($request, $next) {
             if (! auth()->user()->can('sections.view')) {
-                abort(404);
+                abort(403, 'Unauthorized action.');
             }
             return $next($request);
         });

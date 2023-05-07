@@ -11,6 +11,16 @@ use Illuminate\Support\Facades\DB;
 
 class CourseController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            if (! auth()->user()->can('courses.view')) {
+                abort(403, 'Unauthorized action.');
+            }
+            return $next($request);
+        });
+    }
+
     /**
      * Display a listing of the resource.
      *

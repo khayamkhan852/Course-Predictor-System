@@ -18,7 +18,7 @@ class UserController extends Controller
     {
         $this->middleware(function ($request, $next) {
             if (! auth()->user()->can('user.view')) {
-                abort(404);
+                abort(403, 'Unauthorized action.');
             }
             return $next($request);
         });
