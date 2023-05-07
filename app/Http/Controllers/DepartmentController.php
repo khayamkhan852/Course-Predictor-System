@@ -10,6 +10,16 @@ use Illuminate\Support\Facades\DB;
 
 class DepartmentController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            if (! auth()->user()->can('departments.view')) {
+                abort(404);
+            }
+            return $next($request);
+        });
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -28,6 +38,9 @@ class DepartmentController extends Controller
      */
     public function create(): View
     {
+        if (! auth()->user()->can('departments.create')) {
+            abort(403, 'Unauthorized action.');
+        }
         return view('department.create');
     }
 
@@ -39,6 +52,10 @@ class DepartmentController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
+        if (! auth()->user()->can('departments.create')) {
+            abort(403, 'Unauthorized action.');
+        }
+
         $request->validate([
            'name' => ['required', 'string'],
            'short_name' => ['required', 'string'],
@@ -76,6 +93,9 @@ class DepartmentController extends Controller
      */
     public function show(Department $department): View
     {
+        if (! auth()->user()->can('departments.view')) {
+            abort(403, 'Unauthorized action.');
+        }
         return view('department.show', compact('department'));
     }
 
@@ -87,6 +107,10 @@ class DepartmentController extends Controller
      */
     public function edit(Department $department): View
     {
+        if (! auth()->user()->can('departments.update')) {
+            abort(403, 'Unauthorized action.');
+        }
+
         return view('department.edit', compact('department'));
     }
 
@@ -99,6 +123,10 @@ class DepartmentController extends Controller
      */
     public function update(Request $request, Department $department): RedirectResponse
     {
+        if (! auth()->user()->can('departments.update')) {
+            abort(403, 'Unauthorized action.');
+        }
+
         $request->validate([
             'name' => ['required', 'string'],
             'short_name' => ['required', 'string'],
@@ -134,6 +162,10 @@ class DepartmentController extends Controller
      */
     public function destroy(Department $department): RedirectResponse
     {
+        if (! auth()->user()->can('departments.delete')) {
+            abort(403, 'Unauthorized action.');
+        }
+
         $output = false;
         try {
             DB::beginTransaction();

@@ -36,6 +36,60 @@
                                                 </td>
                                             </tr>
                                             <tr>
+                                                <td class="text-gray-800">Departments</td>
+                                                <td>
+                                                    <div class="d-flex">
+                                                        <label class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
+                                                            <x-checkbox class="h-30px w-30px" name="permissions[]" value="departments.view">
+                                                                <span class="form-check-label">View</span>
+                                                            </x-checkbox>
+                                                        </label>
+                                                        <label class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
+                                                            <x-checkbox class="h-30px w-30px" name="permissions[]" value="departments.create">
+                                                                <span class="form-check-label">Create</span>
+                                                            </x-checkbox>
+                                                        </label>
+                                                        <label class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
+                                                            <x-checkbox class="h-30px w-30px" name="permissions[]" value="departments.update">
+                                                                <span class="form-check-label">Edit</span>
+                                                            </x-checkbox>
+                                                        </label>
+                                                        <label class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
+                                                            <x-checkbox class="h-30px w-30px" name="permissions[]" value="departments.delete">
+                                                                <span class="form-check-label">Delete</span>
+                                                            </x-checkbox>
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-gray-800">Courses</td>
+                                                <td>
+                                                    <div class="d-flex">
+                                                        <label class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
+                                                            <x-checkbox class="h-30px w-30px" name="permissions[]" value="courses.view">
+                                                                <span class="form-check-label">View</span>
+                                                            </x-checkbox>
+                                                        </label>
+                                                        <label class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
+                                                            <x-checkbox class="h-30px w-30px" name="permissions[]" value="courses.create">
+                                                                <span class="form-check-label">Create</span>
+                                                            </x-checkbox>
+                                                        </label>
+                                                        <label class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
+                                                            <x-checkbox class="h-30px w-30px" name="permissions[]" value="courses.update">
+                                                                <span class="form-check-label">Edit</span>
+                                                            </x-checkbox>
+                                                        </label>
+                                                        <label class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
+                                                            <x-checkbox class="h-30px w-30px" name="permissions[]" value="courses.delete">
+                                                                <span class="form-check-label">Delete</span>
+                                                            </x-checkbox>
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
                                                 <td> <label class="fs-5 fw-bold form-label mb-2 mt-3 text-primary">Settings</label></td>
                                                 <td>
                                                     <div class="form-check form-check-custom form-check-primary form-check-solid me-10">
@@ -89,6 +143,11 @@
                                                 <td>
                                                     <div class="d-flex">
                                                         <label class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
+                                                            <x-checkbox class="h-30px w-30px settings_all" name="permissions[]" value="roles.view">
+                                                                <span class="form-check-label">View</span>
+                                                            </x-checkbox>
+                                                        </label>
+                                                        <label class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
                                                             <x-checkbox class="h-30px w-30px settings_all" name="permissions[]" value="roles.create">
                                                                 <span class="form-check-label">Create</span>
                                                             </x-checkbox>
@@ -106,13 +165,39 @@
                                                     </div>
                                                 </td>
                                             </tr>
+                                            <tr>
+                                                <td class="text-gray-800">Sections</td>
+                                                <td>
+                                                    <div class="d-flex">
+                                                        <label class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
+                                                            <x-checkbox class="h-30px w-30px settings_all" name="permissions[]" value="sections.view">
+                                                                <span class="form-check-label">View</span>
+                                                            </x-checkbox>
+                                                        </label>
+                                                        <label class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
+                                                            <x-checkbox class="h-30px w-30px settings_all" name="permissions[]" value="sections.create">
+                                                                <span class="form-check-label">Create</span>
+                                                            </x-checkbox>
+                                                        </label>
+                                                        <label class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
+                                                            <x-checkbox class="h-30px w-30px settings_all" name="permissions[]" value="sections.update">
+                                                                <span class="form-check-label">Edit</span>
+                                                            </x-checkbox>
+                                                        </label>
+                                                        <label class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
+                                                            <x-checkbox class="h-30px w-30px settings_all" name="permissions[]" value="sections.delete">
+                                                                <span class="form-check-label">Delete</span>
+                                                            </x-checkbox>
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                            </tr>
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
                             <x-button class="btn-primary">Save Role and Permissions</x-button>
                         </form>
-
                     </div>
                 </div>
             </div>

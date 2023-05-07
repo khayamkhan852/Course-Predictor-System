@@ -1,10 +1,11 @@
 @extends('layouts.app')
-@section('title', 'departments')
+@section('title', 'Sections')
 @section('css')
 
 @endsection
 @section('content')
-    <x-breadcrum name="Departments" page-name="Departments" permission="{{ auth()->user()->can('departments.create') ? '1' : '0' }}" button-url="{{ route('departments.create') }}" button-text="Create" />
+    <x-breadcrum name="sections" parent="1" parent-name="Settings" page-name="sections" permission="{{ auth()->user()->can('sections.create') ? '1' : '0' }}"
+                 button-url="{{ route('settings.sections.create') }}" button-text="Create" />
 
     <div class="docs-content d-flex flex-column flex-column-fluid" id="kt_docs_content">
         <div class="container d-flex flex-column flex-lg-row" id="kt_docs_content_container">
@@ -14,21 +15,19 @@
                         <table id="kt_datatable_dom_positioning" class="table table-striped table-row-bordered gy-5 gs-7 border rounded detail-table align-center">
                             <thead>
                                 <tr class="fw-bold fs-6 text-gray-800 px-7">
-                                    <th scope="col" class="text-center">S.No</th>
-                                    <th scope="col" class="text-center">Name</th>
-                                    <th scope="col" class="text-center">Short Name</th>
-                                    @if(auth()->user()->can('departments.update') || auth()->user()->can('departments.delete'))
+                                    <th scope="col">S.No</th>
+                                    <th scope="col" class="text-center">Section Name</th>
+                                    @if(auth()->user()->can('sections.delete') || auth()->user()->can('sections.update'))
                                         <th scope="col" class="text-center">Action</th>
                                     @endif
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($departments as $department)
+                                @foreach($sections as $section)
                                     <tr>
                                         <td class="text-center">{{ $loop->index + 1 }}</td>
-                                        <td class="text-center">{{ $department->name}}</td>
-                                        <td class="text-center">{{ $department->short_name}}</td>
-                                        @if(auth()->user()->can('departments.update') || auth()->user()->can('departments.delete'))
+                                        <td class="text-center">{{ $section->name }}</td>
+                                        @if(auth()->user()->can('sections.delete') || auth()->user()->can('sections.update'))
                                             <td class="text-center">
                                                 <a href="#" class="btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
                                                     <span class="svg-icon svg-icon-5 m-0">
@@ -38,18 +37,18 @@
                                                     </span>
                                                 </a>
                                                 <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4" data-kt-menu="true" style="">
-                                                    @can('departments.update')
+                                                    @can('sections.update')
                                                         <div class="menu-item px-3">
-                                                            <a href="{{ route('departments.edit', [$department]) }}" class="menu-link px-3">Edit</a>
+                                                            <a href="{{ route('settings.sections.edit', [$section]) }}" class="menu-link px-3">Edit</a>
                                                         </div>
                                                     @endcan
-                                                    @can('departments.delete')
+                                                    @can('sections.delete')
                                                         <div class="menu-item px-3">
-                                                            <form method="POST" id="deleteForm{{$department->id}}" action="{{ route('departments.destroy', $department->id) }}">
+                                                            <form method="POST" id="deleteForm{{$section->id}}" action="{{ route('settings.sections.destroy', [$section]) }}">
                                                                 @csrf
                                                                 @method('DELETE')
                                                             </form>
-                                                            <a onclick="return deleteFunction('{{ $department->id }}')" class="menu-link px-3"> Delete </a>
+                                                            <a onclick="return deleteFunction('{{ $section->id }}')" class="menu-link px-3"> Delete </a>
                                                         </div>
                                                     @endcan
                                                 </div>
@@ -69,7 +68,7 @@
 @section('javascript')
     <script>
         function deleteFunction(id) {
-            if (confirm('Do you want to delete this Department?') === true) {
+            if (confirm('Do you want to delete this Section?') === true) {
                 $('#deleteForm' + id).submit();
             }
         }

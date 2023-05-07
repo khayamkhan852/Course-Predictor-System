@@ -1,8 +1,8 @@
 @extends('layouts.app')
-@section('title', 'business settings')
+@section('title', 'Edit User')
 
 @section('content')
-    <x-breadcrum name="users" parent="1" parent-name="Settings" page-name="New User" />
+    <x-breadcrum name="users" parent="1" parent-name="Settings" page-name="Edit User" />
     <div class="docs-content d-flex flex-column flex-column-fluid">
         <div class="container d-flex flex-column flex-lg-row">
             <div class="card card-docs flex-row-fluid mb-2 bg-gray-100">

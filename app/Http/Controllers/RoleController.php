@@ -14,6 +14,16 @@ use Spatie\Permission\Models\Role;
 
 class RoleController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            if (! auth()->user()->can('roles.view')) {
+                abort(404);
+            }
+            return $next($request);
+        });
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -32,6 +42,10 @@ class RoleController extends Controller
      */
     public function create(): View
     {
+        if (! auth()->user()->can('roles.create')) {
+            abort(403, 'Unauthorized action.');
+        }
+
         return view('settings.roles.create');
     }
 
@@ -44,6 +58,10 @@ class RoleController extends Controller
      */
     public function store(Request $request, PermissionService $permissionService): RedirectResponse
     {
+        if (! auth()->user()->can('roles.create')) {
+            abort(403, 'Unauthorized action.');
+        }
+
         $request->validate([
             'role_name' => [
                 'required',
@@ -97,6 +115,10 @@ class RoleController extends Controller
      */
     public function edit($id): View
     {
+        if (! auth()->user()->can('roles.update')) {
+            abort(403, 'Unauthorized action.');
+        }
+
         $role = Role::with('permissions:id,name')->findOrFail($id);
         $permissions = [];
         foreach ($role->permissions as $permission) {
@@ -114,6 +136,10 @@ class RoleController extends Controller
      */
     public function update(Request $request, $id, PermissionService $permissionService): RedirectResponse
     {
+        if (! auth()->user()->can('roles.update')) {
+            abort(403, 'Unauthorized action.');
+        }
+
         $role = Role::findOrFail($id);
         $request->validate([
             'role_name' => [
@@ -155,6 +181,10 @@ class RoleController extends Controller
      */
     public function destroy($id): RedirectResponse
     {
+        if (! auth()->user()->can('roles.delete')) {
+            abort(403, 'Unauthorized action.');
+        }
+
         $role = Role::findOrFail($id);
         $output = false;
         try {

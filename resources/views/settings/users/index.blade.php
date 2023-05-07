@@ -19,9 +19,7 @@
                                     <th scope="col" class="text-center">Role</th>
                                     <th scope="col" class="text-center">verified</th>
                                     <th scope="col" class="text-center">Joined Date</th>
-                                    @if(auth()->user()->can('user.view') || auth()->user()->can('user.delete') || auth()->user()->can('user.update') || auth()->user()->can('user.reset.password'))
-                                        <th scope="col" class="text-center">Action</th>
-                                    @endif
+                                    <th scope="col" class="text-center">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -29,24 +27,14 @@
                                     <tr>
                                         <td class="d-flex align-items-center">
                                             <div class="symbol symbol-circle symbol-50px overflow-hidden me-3">
-                                                @if(auth()->user()->can('user.view'))
-                                                    <a href="{{ route('settings.users.show', [$user]) }}">
-                                                        <div class="symbol-label">
-                                                            <img src="{{ $user->getFirstMediaUrl('users') ?: asset('theme/assets/media/avatars/300-6.jpg') }}" alt="{{ $user->name }}" class="w-100" />
-                                                        </div>
-                                                    </a>
-                                                @else
+                                                <a href="{{ route('settings.users.show', [$user]) }}">
                                                     <div class="symbol-label">
                                                         <img src="{{ $user->getFirstMediaUrl('users') ?: asset('theme/assets/media/avatars/300-6.jpg') }}" alt="{{ $user->name }}" class="w-100" />
                                                     </div>
-                                                @endif
+                                                </a>
                                             </div>
                                             <div class="d-flex flex-column">
-                                                @if(auth()->user()->can('user.view'))
-                                                    <a href="{{ route('settings.users.show', [$user]) }}" class="text-gray-800 text-hover-primary mb-1">{{ $user->name }}</a>
-                                                @else
-                                                    <span class="text-gray-800 text-hover-primary mb-1">{{ $user->name }}</span>
-                                                @endif
+                                                <a href="{{ route('settings.users.show', [$user]) }}" class="text-gray-800 text-hover-primary mb-1">{{ $user->name }}</a>
                                                 <span>{{ $user->email }}</span>
                                             </div>
                                         </td>
@@ -63,7 +51,7 @@
                                             @endif
                                         </td>
                                         <td class="text-center">{{ $user->created_at->format('d/m/Y') }}</td>
-                                        @if(auth()->user()->can('user.view') || auth()->user()->can('user.delete') || auth()->user()->can('user.update') || auth()->user()->can('user.reset.password'))
+                                        @if(auth()->user()->can('user.delete') || auth()->user()->can('user.update') || auth()->user()->can('user.reset.password'))
                                             <td class="text-center">
                                                 <a href="#" class="btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
                                                     <span class="svg-icon svg-icon-5 m-0">
@@ -73,11 +61,9 @@
                                                     </span>
                                                 </a>
                                                 <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4" data-kt-menu="true" style="">
-                                                    @can('user.view')
-                                                        <div class="menu-item px-3">
-                                                            <a href="{{ route('settings.users.show', [$user]) }}" class="menu-link px-3">View</a>
-                                                        </div>
-                                                    @endcan
+                                                    <div class="menu-item px-3">
+                                                        <a href="{{ route('settings.users.show', [$user]) }}" class="menu-link px-3">View</a>
+                                                    </div>
                                                     @can('user.update')
                                                         <div class="menu-item px-3">
                                                             <a href="{{ route('settings.users.edit', [$user]) }}" class="menu-link px-3">Edit</a>

@@ -25,9 +25,29 @@ class PermissionSeeder extends Seeder
             ['name' => 'user.reset.password'],
 
             // users type
+            ['name' => 'roles.view'],
             ['name' => 'roles.create'],
             ['name' => 'roles.update'],
             ['name' => 'roles.delete'],
+
+            // users type
+            ['name' => 'sections.view'],
+            ['name' => 'sections.create'],
+            ['name' => 'sections.update'],
+            ['name' => 'sections.delete'],
+
+
+            // departments
+            ['name' => 'departments.view'],
+            ['name' => 'departments.create'],
+            ['name' => 'departments.update'],
+            ['name' => 'departments.delete'],
+
+            // courses
+            ['name' => 'courses.view'],
+            ['name' => 'courses.create'],
+            ['name' => 'courses.update'],
+            ['name' => 'courses.delete'],
 
         ];
 

@@ -1,4 +1,4 @@
-@if(auth()->user()->can('user.view') || auth()->user()->can('user.delete') || auth()->user()->can('user.update') || auth()->user()->can('user.reset.password') || auth()->user()->can('user.create'))
+@if(auth()->user()->can('user.view') || auth()->user()->can('roles.view') || auth()->user()->can('sections.view'))
     <div data-kt-menu-trigger="click" class="menu-item here {{ request()->routeIs('settings.*') ? 'show' : '' }} menu-accordion">
         <span class="menu-link">
             <span class="menu-icon">
@@ -13,7 +13,7 @@
             <span class="menu-arrow"></span>
         </span>
         <div class="menu-sub menu-sub-accordion">
-            @if(auth()->user()->can('user.view') || auth()->user()->can('user.delete') || auth()->user()->can('user.update') || auth()->user()->can('user.reset.password') || auth()->user()->can('user.create'))
+            @can('user.view')
                 <div class="menu-item">
                     <a class="menu-link {{ request()->routeIs('settings.users.*') ? 'active' : '' }}" href="{{ route('settings.users.index') }}">
                         <span class="menu-bullet">
@@ -22,15 +22,27 @@
                         <span class="menu-title">Users</span>
                     </a>
                 </div>
-            @endif
-            <div class="menu-item">
-                <a class="menu-link {{ request()->routeIs('settings.roles.*') ? 'active' : '' }}" href="{{ route('settings.roles.index') }}">
-                    <span class="menu-bullet">
-                        <span class="bullet bullet-dot"></span>
-                    </span>
-                    <span class="menu-title">Roles</span>
-                </a>
-            </div>
+            @endcan
+            @can('roles.view')
+                <div class="menu-item">
+                    <a class="menu-link {{ request()->routeIs('settings.roles.*') ? 'active' : '' }}" href="{{ route('settings.roles.index') }}">
+                        <span class="menu-bullet">
+                            <span class="bullet bullet-dot"></span>
+                        </span>
+                        <span class="menu-title">Roles</span>
+                    </a>
+                </div>
+            @endcan
+            @can('sections.view')
+                <div class="menu-item">
+                    <a class="menu-link {{ request()->routeIs('settings.sections.*') ? 'active' : '' }}" href="{{ route('settings.sections.index') }}">
+                        <span class="menu-bullet">
+                            <span class="bullet bullet-dot"></span>
+                        </span>
+                        <span class="menu-title">Sections</span>
+                    </a>
+                </div>
+            @endcan
         </div>
     </div>
 @endif

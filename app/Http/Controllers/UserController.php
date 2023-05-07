@@ -3,9 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UserStoreRequest;
-use App\Models\Branch;
 use App\Models\User;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
@@ -18,7 +16,10 @@ class UserController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(function ($request, $next){
+        $this->middleware(function ($request, $next) {
+            if (! auth()->user()->can('user.view')) {
+                abort(404);
+            }
             return $next($request);
         });
     }
@@ -102,10 +103,6 @@ class UserController extends Controller
      */
     public function show(User $user): View
     {
-        if (! auth()->user()->can('user.view')) {
-            abort(403, 'Unauthorized action.');
-        }
-
         $user->load('user:id,name', 'media', 'roles:id,name');
         return view('settings.users.show', compact('user'));
     }
