@@ -152,6 +152,14 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'department_id' => 'Department',
+        'coordinator_id' => 'Course Coordinator',
+        'course_level' => 'Course Level',
+        'credit_hours' => 'Credit Hours',
+        'instructor_id' => 'Course Instructor',
+        'section_id' => 'Section',
+        'short_name' => 'Short Name',
+    ],
 
 ];

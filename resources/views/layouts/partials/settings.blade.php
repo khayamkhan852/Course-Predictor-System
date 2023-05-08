@@ -1,5 +1,5 @@
 @if(auth()->user()->can('user.view') || auth()->user()->can('roles.view') || auth()->user()->can('sections.view'))
-    <div data-kt-menu-trigger="click" class="menu-item here {{ request()->routeIs('settings.*') ? 'show' : '' }} menu-accordion">
+    <div data-kt-menu-trigger="click" class="menu-item {{ request()->routeIs('settings.*') ? 'here show' : '' }} menu-accordion">
         <span class="menu-link">
             <span class="menu-icon">
                 <span class="svg-icon svg-icon-5">

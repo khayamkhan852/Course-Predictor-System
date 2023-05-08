@@ -6,7 +6,7 @@
     <div class="docs-content d-flex flex-column flex-column-fluid">
         <div class="container d-flex flex-column flex-lg-row">
             <div class="card card-docs flex-row-fluid mb-2 bg-gray-100">
-                <div class="card-body fs-6 py-15 px-10 py-lg-15 px-lg-15" style="background-color:#F5F6FA;">
+                <div class="card-body fs-6 py-15 px-10 py-lg-15 px-lg-15">
                     <div class="pb-10">
                         <form class="form w-100" action="{{ route('settings.users.update', $user) }}" method="POST" enctype="multipart/form-data">
                             @csrf
