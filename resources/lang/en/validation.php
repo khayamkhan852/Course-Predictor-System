@@ -161,6 +161,7 @@ return [
         'section_id' => 'Section',
         'short_name' => 'Short Name',
         'course_id' => 'Course',
+        'total_credit_hours' => 'Total Credit Hours',
     ],
 
 ];

@@ -49,4 +49,9 @@ class Course extends Model
         ]);
     }
 
+    public function semesters()
+    {
+        return $this->belongsToMany(Semester::class);
+    }
+
 }

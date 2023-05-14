@@ -6,6 +6,7 @@ use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\DropZoneFileController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SectionController;
+use App\Http\Controllers\SemesterController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -35,6 +36,12 @@ Route::middleware(['auth'])->group(function () {
 
     });
     Route::resource('courses', CourseController::class);
+
+    Route::prefix('semesters')->name('semesters.')->group(function () {
+        Route::get('{semester}/assign/courses', [SemesterController::class, ['assignCoursesView']])->name('assign.courses.view');
+        Route::put('{semester}/assign/courses', [SemesterController::class, ['assignCourses']])->name('assign.courses');
+    });
+    Route::resource('semesters', SemesterController::class);
 });
 
 

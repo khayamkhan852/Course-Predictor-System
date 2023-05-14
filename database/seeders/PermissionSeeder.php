@@ -49,6 +49,13 @@ class PermissionSeeder extends Seeder
             ['name' => 'courses.update'],
             ['name' => 'courses.delete'],
 
+            // semesters
+            ['name' => 'semesters.view'],
+            ['name' => 'semesters.create'],
+            ['name' => 'semesters.update'],
+            ['name' => 'semesters.delete'],
+            ['name' => 'semesters.assign_courses'],
+
         ];
 
         $insert_data = [];
