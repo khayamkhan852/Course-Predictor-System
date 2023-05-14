@@ -21,5 +21,21 @@ class CourseSeeder extends Seeder
             'course_level' => 'BS',
             'department_id' => 1,
         ]);
+
+        Course::create([
+            'code' => 'SEN 464',
+            'title' => 'Professional Practice',
+            'credit_hours' => 3,
+            'course_level' => 'BS',
+            'department_id' => 1,
+        ]);
+
+        Course::create([
+            'code' => 'CSC 315',
+            'title' => 'Information Security',
+            'credit_hours' => 3,
+            'course_level' => 'BS',
+            'department_id' => 1,
+        ]);
     }
 }

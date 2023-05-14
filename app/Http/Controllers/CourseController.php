@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateCourseRequest;
+use App\Http\Requests\UpdateCourseRequest;
 use App\Models\Course;
 use App\Models\Department;
+use App\Models\Section;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -47,16 +51,21 @@ class CourseController extends Controller
         }
 
         $departments = Department::get(['id', 'name']);
-        return view('courses.create', compact('departments'));
+        $courses = Course::get(['id', 'title']);
+        $users = User::whereHas('roles', function ($query) {
+            $query->where('name', 'Teacher');
+        })->get(['id', 'name']);
+        $sections = Section::get(['id', 'name']);
+        return view('courses.create', compact('departments', 'courses', 'users', 'sections'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
+     * @param CreateCourseRequest $request
      * @return RedirectResponse
      */
-    public function store(Request $request): RedirectResponse
+    public function store(CreateCourseRequest $request): RedirectResponse
     {
         if (! auth()->user()->can('courses.create')) {
             abort(403, 'Unauthorized action.');
@@ -65,20 +74,33 @@ class CourseController extends Controller
         $output = false;
         try {
             DB::beginTransaction();
-            // store code goes here
+
+            $course = Course::create($request->validated());
+            $course_instructors = [];
+            foreach ($request->input('course_instructors') as $course_instructor) {
+                if ($course_instructor['section_id'] === null && $course_instructor['instructor_id'] === null) {
+                    continue;
+                }
+                $course_instructors[] = [
+                    'instructor_id' => $course_instructor['instructor_id'],
+                    'section_id' => $course_instructor['section_id'],
+                ];
+            }
+
+            $course->courseInstructors()->createMany($course_instructors);
 
             DB::commit();
             $output = true;
-        } catch (\Exception|\error $error) {
+        } catch (\Exception|\Error $error) {
             DB::rollBack();
         }
 
         if ($output) {
-            alert()->success('title', 'description');
-            return redirect()->route('.index');
+            alert()->success('added', 'Course Added Successfully');
+            return redirect()->route('courses.index');
         }
         alert()->error('error', 'something went wrong');
-        return redirect()->route('.index');
+        return redirect()->route('courses.index');
     }
 
     /**
@@ -90,8 +112,14 @@ class CourseController extends Controller
     public function show(Course $course): View
     {
         // eager loading relationship if any
-        $course->load();
-        return view('', compact('course'));
+        $course->load([
+            'courseInstructors.instructor:id,name',
+            'courseInstructors.section:id,name',
+            'pre_requisite_course:id,title,code',
+            'coordinator:id,name',
+            'department:id,name',
+        ]);
+        return view('courses.show', compact('course'));
     }
 
     /**
@@ -106,17 +134,31 @@ class CourseController extends Controller
             abort(403, 'Unauthorized action.');
         }
 
-        return view('', compact('course'));
+        $course->load([
+            'courseInstructors.section:id,name'
+        ]);
+
+        $departments = Department::get(['id', 'name']);
+        $courses = Course::get(['id', 'title']);
+        $users = User::whereHas('roles', function ($query) {
+            $query->where('name', 'Teacher');
+        })->get(['id', 'name']);
+
+        $instructorIds = $course->courseInstructors->pluck(['section_id']);
+
+        $sections = Section::whereNotIn('id', $instructorIds)->get(['id', 'name']);
+
+        return view('courses.edit', compact('course', 'departments', 'courses', 'users', 'sections'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
+     * @param UpdateCourseRequest $request
      * @param Course $course
      * @return RedirectResponse
      */
-    public function update(Request $request, Course $course): RedirectResponse
+    public function update(UpdateCourseRequest $request, Course $course): RedirectResponse
     {
         if (! auth()->user()->can('courses.update')) {
             abort(403, 'Unauthorized action.');
@@ -126,9 +168,21 @@ class CourseController extends Controller
         try {
             DB::beginTransaction();
 
-            $course->update([
+            $course->update($request->validated());
 
-            ]);
+            $course_instructors = [];
+            foreach ($request->input('course_instructors') as $course_instructor) {
+                if ($course_instructor['section_id'] === null && $course_instructor['instructor_id'] === null) {
+                    continue;
+                }
+                $course_instructors[] = [
+                    'instructor_id' => $course_instructor['instructor_id'],
+                    'section_id' => $course_instructor['section_id'],
+                ];
+            }
+
+            $course->courseInstructors()->delete();
+            $course->courseInstructors()->createMany($course_instructors);
 
             DB::commit();
             $output = true;
@@ -137,11 +191,11 @@ class CourseController extends Controller
         }
 
         if ($output) {
-            alert()->success('title', 'description');
-            return redirect()->route('.index');
+            alert()->success('updated', 'Course Updated Successfully');
+            return redirect()->route('courses.index');
         }
         alert()->error('error', 'something went wrong');
-        return redirect()->route('.index');
+        return redirect()->route('courses.index');
     }
 
     /**
@@ -160,19 +214,20 @@ class CourseController extends Controller
         try {
             DB::beginTransaction();
 
+            $course->courseInstructors()->delete();
             $course->delete();
 
             DB::commit();
             $output = true;
-        } catch (\Exception|\error $error) {
+        } catch (\Exception|\Error $error) {
             DB::rollBack();
         }
 
         if ($output) {
-            alert()->success('title', 'description');
-            return redirect()->route('.index');
+            alert()->success('Deleted', 'Course Deleted Successfully');
+            return redirect()->route('courses.index');
         }
-        alert()->error('error', 'something went wrong');
-        return redirect()->route('.index');
+        alert()->error('error', 'something went wrong, There May be other Records against this'. $course->title);
+        return redirect()->route('courses.index');
     }
 }

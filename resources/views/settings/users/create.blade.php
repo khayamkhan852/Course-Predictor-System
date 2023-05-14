@@ -44,10 +44,22 @@
                                     <x-select-two name="role" id="role" required>
                                         <option value=""></option>
                                         @foreach($roles as $role)
-                                            <option value="{{ $role->id }}" {{old('role')== $role->id ? 'selected' : ''}}>{{ $role->name }}</option>
+                                            <option value="{{ $role->id }}" {{ old('role')== $role->id ? 'selected' : ''}}>{{ $role->name }}</option>
                                         @endforeach
                                     </x-select-two>
                                     @error('role')
+                                        <x-error>{{ $message }}</x-error>
+                                    @enderror
+                                </div>
+                                <div class="col-6 mb-10">
+                                    <x-label for="department_id" class="required">Department</x-label>
+                                    <x-select-two name="department_id" id="department_id" required>
+                                        <option value=""></option>
+                                        @foreach($departments as $department)
+                                            <option value="{{ $department->id }}" {{ old('department_id')== $department->id ? 'selected' : ''}}>{{ $department->name }}</option>
+                                        @endforeach
+                                    </x-select-two>
+                                    @error('department_id')
                                         <x-error>{{ $message }}</x-error>
                                     @enderror
                                 </div>

@@ -23,16 +23,14 @@
                             <div class="row">
                                 <div class="col-sm-12 col-md-6 col-xl-6 col-lg-6 mb-10">
                                     <x-label for="name" class="required">Name</x-label>
-                                    <x-input id="name" name="name" value="{{ old('email') ?: $user->name }}"
-                                             placeholder="Name" autofocus required />
+                                    <x-input id="name" name="name" value="{{ old('name') ?: $user->name }}" placeholder="Name" autofocus />
                                     @error('name')
                                     <x-error>{{ $message }}</x-error>
                                     @enderror
                                 </div>
                                 <div class="col-sm-12 col-md-6 col-xl-6 col-lg-6 mb-10">
                                     <x-label for="email" class="required">Email</x-label>
-                                    <x-input id="email" type="email" name="email"
-                                             value="{{ old('email') ?: $user->email }}" required placeholder="Email" readonly />
+                                    <x-input id="email" type="email" name="email" value="{{ old('email') ?: $user->email }}" placeholder="Email" />
                                     @error('email')
                                         <x-error>{{ $message }}</x-error>
                                     @enderror
@@ -41,20 +39,31 @@
                             <div class="row">
                                 <div class="col-6 mb-10">
                                     <x-label for="role" class="required">User Role</x-label>
-                                    <x-select-two name="role" id="role" required>
-                                        <option value=""></option>
-                                        @if($user->id === 1)
-                                            <option value="1" selected>Admin</option>
-                                        @else
+                                    @if($user->id === 1)
+                                        <x-input type="text" value="Super Admin" readonly />
+                                    @else
+                                        <x-select-two name="role" id="role">
                                             @foreach($roles as $role)
                                                 <option value="{{ $role->id }}"
                                                     {{ (old('role') && in_array($role->id, old('role'))) || (empty(old('role')) && in_array($role->id, $user->roles->pluck('id')->toArray()))  ? 'selected' : '' }}>
                                                     {{ $role->name }}
                                                 </option>
                                             @endforeach
-                                        @endif
-                                    </x-select-two>
+                                        </x-select-two>
+                                    @endif
                                     @error('role')
+                                        <x-error>{{ $message }}</x-error>
+                                    @enderror
+                                </div>
+                                <div class="col-6 mb-10">
+                                    <x-label for="department_id" class="required">Department</x-label>
+                                    <x-select-two name="department_id" id="department_id">
+                                        @foreach($departments as $department)
+                                            <option value="{{ $department->id }}" {{ ( (old('department_id') ?? $user->department_id) == $department->id) ? 'selected' : '' }}>{{ $department->name }}</option>
+                                        @endforeach
+                                    </x-select-two>
+
+                                    @error('department_id')
                                         <x-error>{{ $message }}</x-error>
                                     @enderror
                                 </div>

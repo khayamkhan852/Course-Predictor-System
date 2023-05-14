@@ -16,7 +16,12 @@ class DepartmentSeeder extends Seeder
     {
         Department::create([
             'name' => 'DEPARTMENT OF SOFTWARE ENGINEERING',
-            'short_name' => 'BSE',
+            'short_name' => 'BCSE',
+        ]);
+
+        Department::create([
+            'name' => 'DEPARTMENT OF COMPUTER SCIENCE',
+            'short_name' => 'BCSC',
         ]);
     }
 }

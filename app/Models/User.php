@@ -29,6 +29,7 @@ class User extends Authenticatable implements HasMedia
         'name',
         'email',
         'password',
+        'department_id',
         'user_id'
     ];
 
@@ -62,6 +63,11 @@ class User extends Authenticatable implements HasMedia
     public function user(): BelongsTo
     {
         return $this->belongsTo(__CLASS__, 'user_id');
+    }
+
+    public function department(): BelongsTo
+    {
+        return $this->belongsTo(Department::class, 'department_id');
     }
 
     public function registerMediaConversions(Media $media = null): void

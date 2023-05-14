@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UserStoreRequest;
+use App\Models\Department;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\DB;
@@ -50,8 +52,9 @@ class UserController extends Controller
             abort(403, 'Unauthorized action.');
         }
 
-        $roles = Role::get(['id', 'name']);
-        return view('settings.users.create', compact('roles'));
+        $departments = Department::get(['id', 'name']);
+        $roles = Role::where('id', '!=', '1')->get(['id', 'name']);
+        return view('settings.users.create', compact('roles', 'departments'));
     }
 
     /**
@@ -72,6 +75,7 @@ class UserController extends Controller
             $user = User::create([
                 'name' => $request->input('name'),
                 'email' => $request->input('email'),
+                'department_id' => $request->input('department_id'),
                 'user_id' => auth()->id(),
                 'password' => Hash::make($request->input('password')),
             ]);
@@ -121,9 +125,9 @@ class UserController extends Controller
 
         $user->load('roles');
 
-
-        $roles = Role::get(['id', 'name']);
-        return view('settings.users.edit', compact('user', 'roles'));
+        $departments = Department::get(['id', 'name']);
+        $roles = Role::where('id', '!=', '1')->get(['id', 'name']);
+        return view('settings.users.edit', compact('user', 'roles', 'departments'));
     }
 
     /**
@@ -142,8 +146,13 @@ class UserController extends Controller
 
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'role' => ['required'],
+            'department_id' => ['required', 'numeric'],
+            'email' => [
+                'required', 'string', 'email', 'max:255',
+                Rule::unique('users', 'email')->ignore($user->id)
+            ],
             'user_avatar' => ['nullable', 'image', 'mimes:jpg,png,jpeg', 'max:2048'],
+            'role' => $user->id !== 1 ? ['required', 'numeric'] : '',
         ]);
         $output = false;
         try {
@@ -151,13 +160,18 @@ class UserController extends Controller
 
             $user->update([
                 'name' => $request->input('name'),
+                'email' => $request->input('email'),
+                'department_id' => $request->input('department_id'),
             ]);
+
             if ($request->hasFile('user_avatar')) {
                 $user->clearMediaCollection('users');
                 $user->addMediaFromRequest('user_avatar')->toMediaCollection('users');
             }
 
-            $user->syncRoles($request->input('role'));
+            if ($user->id !== 1 && $request->has('role')) {
+                $user->syncRoles($request->input('role'));
+            }
 
             DB::commit();
             $output = true;

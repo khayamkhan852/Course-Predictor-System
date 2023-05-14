@@ -61,27 +61,12 @@ class DepartmentController extends Controller
            'short_name' => ['required', 'string'],
         ]);
 
-        $output = false;
-        try {
-            DB::beginTransaction();
+        Department::create([
+            'name' => $request->input('name'),
+            'short_name' => $request->input('short_name'),
+        ]);
 
-            Department::create([
-                'name' => $request->input('name'),
-                'short_name' => $request->input('short_name'),
-            ]);
-
-
-            DB::commit();
-            $output = true;
-        } catch (\Exception|\error $error) {
-            DB::rollBack();
-        }
-
-        if ($output) {
-            alert()->success('added', 'Department Added Successfully');
-            return redirect()->route('departments.index');
-        }
-        alert()->error('error', 'Something went wrong');
+        alert()->success('added', 'Department Added Successfully');
         return redirect()->route('departments.index');
     }
 

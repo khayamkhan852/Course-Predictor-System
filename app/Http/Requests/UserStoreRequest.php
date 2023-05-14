@@ -31,6 +31,7 @@ class UserStoreRequest extends FormRequest
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'role' => ['required'],
             'user_avatar' => ['nullable', 'image', 'mimes:jpg,png,jpeg', 'max:2048'],
+            'department_id' => ['required', 'numeric'],
         ];
     }
 }

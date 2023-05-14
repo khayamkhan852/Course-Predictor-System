@@ -62,7 +62,11 @@
                 </div>
                 <div class="ms-2">
                     <a href="#" class="text-gray-800 text-hover-primary fs-6 fw-bold lh-1">{{ auth()->user()->name }}</a>
-                    <span class="text-muted fw-semibold d-block fs-7 lh-1">Full Stack Dev</span>
+                    <span class="text-muted fw-semibold d-block fs-7 lh-1">
+                        @foreach(auth()->user()->roles as $role)
+                            {{ $role->name }}
+                        @endforeach
+                    </span>
                 </div>
             </div>
             <div class="ms-1">
@@ -81,33 +85,12 @@
                                 <img alt="Logo" src="{{ auth()->user()->getFirstMediaUrl('users') ?: asset('theme/assets/media/avatars/300-1.jpg') }}" />
                             </div>
                             <div class="d-flex flex-column">
-                                <div class="fw-bold d-flex align-items-center fs-5">{{ auth()->user()->name }}
-                                    <span class="badge badge-light-success fw-bold fs-8 px-2 py-1 ms-2">Pro</span></div>
-                                <a href="#" class="fw-semibold text-muted text-hover-primary fs-7">https://vrent.botsuite.app</a>
+                                <div class="fw-bold d-flex align-items-center fs-5">{{ auth()->user()->name }}</div>
+                                <a href="#" class="fw-semibold text-muted text-hover-primary fs-7">Smart System Online URL</a>
                             </div>
                         </div>
                     </div>
                     <div class="separator my-2"></div>
-                    <div class="menu-item px-5" data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="right-end">
-                        <a href="#" class="menu-link px-5">
-                            <span class="menu-title position-relative">Language
-                            <span class="fs-8 rounded bg-light px-3 py-2 position-absolute translate-middle-y top-50 end-0">English
-                                <img class="w-15px h-15px rounded-1 ms-2" src="{{ asset('theme/assets/media/flags/united-states.svg') }}" alt="" /></span>
-                            </span>
-                        </a>
-                        <div class="menu-sub menu-sub-dropdown w-175px py-4">
-                            <div class="menu-item px-3">
-                                <a href="#" class="menu-link d-flex px-5 active">
-                                    <span class="symbol symbol-20px me-4">
-                                        <img class="rounded-1" src="{{ asset('theme/assets/media/flags/united-states.svg') }}" alt="" />
-                                    </span>English
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="menu-item px-5 my-1">
-                        <a href="#" class="menu-link px-5">Account Settings</a>
-                    </div>
                     <div class="menu-item px-5">
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf

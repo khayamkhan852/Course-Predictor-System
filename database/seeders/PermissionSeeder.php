@@ -63,7 +63,16 @@ class PermissionSeeder extends Seeder
 
         Permission::insert($insert_data);
 
-        $role = Role::create(['name' => 'Admin']);
+        $role = Role::create(['name' => 'Super Admin']);
+        $role->givePermissionTo(Permission::all());
+
+        $role = Role::create(['name' => 'Student']);
+        $role->givePermissionTo(Permission::all());
+
+        $role = Role::create(['name' => 'Teacher']);
+        $role->givePermissionTo(Permission::all());
+
+        $role = Role::create(['name' => 'Head Of Department']);
         $role->givePermissionTo(Permission::all());
 
     }

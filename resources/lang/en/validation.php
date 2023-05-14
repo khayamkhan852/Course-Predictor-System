@@ -160,6 +160,7 @@ return [
         'instructor_id' => 'Course Instructor',
         'section_id' => 'Section',
         'short_name' => 'Short Name',
+        'course_id' => 'Course',
     ],
 
 ];
