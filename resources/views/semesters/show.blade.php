@@ -28,6 +28,52 @@
                                 <p>{{ $semester->department->name }}</p>
                             </div>
                         </div>
+                        @if($semester->courses_count > 0)
+                            <div class="card pt-4 mb-6 mb-xl-9">
+                                <div class="card-header border-0">
+                                    <div class="card-title">
+                                        <h2>Courses Assigned</h2>
+                                    </div>
+                                </div>
+                                <div class="card-body pt-0 pb-5">
+                                    <!--begin::Table-->
+                                    <div id="kt_table_customers_payment_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                                        <div class="table-responsive">
+                                            <table class="table align-middle table-row-dashed gy-5">
+                                                <thead class="border-bottom border-gray-200 fs-7 fw-bold">
+                                                <tr class="text-center text-uppercase gs-0">
+                                                    <th>S.No</th>
+                                                    <th>Code</th>
+                                                    <th>Title</th>
+                                                    <th>Credit Hours</th>
+                                                    <th>Pre-requisite Course</th>
+                                                    @can('courses.view')
+                                                        <th>view</th>
+                                                    @endcan
+                                                </tr>
+                                                </thead>
+                                                <tbody class="fs-6 fw-semibold text-center text-gray-800">
+                                                @foreach($semester->courses as $course)
+                                                    <tr class="{{ $loop->even ? 'even' : 'odd' }}">
+                                                        <td>{{ $loop->index + 1 }}</td>
+                                                        <td>{{ $course->code }}</td>
+                                                        <td>{{ $course->title }}</td>
+                                                        <td>{{ $course->credit_hours }}</td>
+                                                        <td>{{ $course->pre_requisite_course->title }}</td>
+                                                        @can('courses.view')
+                                                            <td class="pe-0 text-end">
+                                                                <a href="{{ route('courses.show', $course) }}" target="_blank" class="btn btn-sm btn-primary"> View Course</a>
+                                                            </td>
+                                                        @endcan
+                                                    </tr>
+                                                @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>

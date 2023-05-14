@@ -19,6 +19,7 @@
                                     <th scope="col" class="text-center">Year</th>
                                     <th scope="col" class="text-center">Total Credit Hours</th>
                                     <th scope="col" class="text-center">Department</th>
+                                    <th scope="col" class="text-center">Total Courses</th>
                                     @if(auth()->user()->can('semesters.update') || auth()->user()->can('semesters.delete') || auth()->user()->can('semesters.assign_courses'))
                                         <th scope="col" class="text-center">Action</th>
                                     @endif
@@ -32,6 +33,7 @@
                                         <td class="text-center">{{ $semester->year}}</td>
                                         <td class="text-center">{{ $semester->total_credit_hours ?? '--'}}</td>
                                         <td class="text-center">{{ $semester->department->name }}</td>
+                                        <td class="text-center">{{ $semester->courses_count }}</td>
                                         @if(auth()->user()->can('semesters.update') || auth()->user()->can('semesters.delete') || auth()->user()->can('semesters.assign_courses'))
                                             <td class="text-center">
                                                 <a href="#" class="btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions

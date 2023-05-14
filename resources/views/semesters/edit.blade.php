@@ -58,14 +58,6 @@
     </div>
 @endsection
 
-@section('javascript')
-    <script>
-        function DeleteRow(that) {
-            $(that).closest('tr').remove();
-        }
-    </script>
-@endsection
-
 
 
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Course;
 use App\Models\Department;
 use App\Models\Semester;
 use Illuminate\Http\Request;
@@ -28,7 +29,7 @@ class SemesterController extends Controller
      */
     public function index(): View
     {
-        $semesters = Semester::with(['department:id,name'])->latest('year')->get();
+        $semesters = Semester::with(['department:id,name'])->withCount('courses')->latest('year')->get();
         return view('semesters.index', compact('semesters'));
     }
 
@@ -84,8 +85,13 @@ class SemesterController extends Controller
     {
         // eager loading relationship if any
         $semester->load([
-            'department:id,name,short_name'
+            'department:id,name,short_name',
+            'courses' => function ($query) {
+                $query->with(['pre_requisite_course:id,title']);
+            }
         ]);
+        $semester->loadCount('courses');
+
         return view('semesters.show', compact('semester'));
     }
 
@@ -177,6 +183,11 @@ class SemesterController extends Controller
             abort(403, 'Unauthorized action.');
         }
 
+        $semester->load('courses');
+        $courses = Course::where('department_id', $semester->department_id)->get();
+
+        return view('semesters.assign_courses', compact('courses', 'semester'));
+
     }
 
     /**
@@ -192,7 +203,14 @@ class SemesterController extends Controller
             abort(403, 'Unauthorized action.');
         }
 
+        $request->validate([
+            'course_id' => ['required']
+        ]);
 
+        $semester->courses()->sync($request->input('course_id'));
+
+        alert()->success('Assigned', 'Courses Assigned to Semester' . $semester->name . ' Successfully');
+        return redirect()->route('semesters.index');
 
     }
 }
