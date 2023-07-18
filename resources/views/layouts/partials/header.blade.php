@@ -13,8 +13,7 @@
                 </div>
             </div>
             <a href="{{ route('dashboard.index') }}">
-                <img alt="Logo" src="{{ asset('theme/assets/media/logos/default-dark.svg') }}" class="h-25px h-lg-30px d-none d-md-block" />
-                <img alt="Logo" src="{{ asset('theme/assets/media/logos/default-small.svg') }}" class="h-25px d-block d-md-none" />
+                <h1 alt="Logo" class="h-25px h-lg-30px d-none d-md-block">SMART GUIDE</h1>
             </a>
         </div>
         <div class="topbar d-flex align-items-stretch">

@@ -202,7 +202,9 @@ class UserController extends Controller
         $output = false;
         try {
             DB::beginTransaction();
-            $user->removeRole($user->roles);
+            foreach ($user->roles as $role) {
+                $user->removeRole($role);
+            }
             $user->delete();
             DB::commit();
             $output = true;

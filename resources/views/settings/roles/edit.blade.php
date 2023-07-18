@@ -43,7 +43,7 @@
                                                     <div class="d-flex">
                                                         <label class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
                                                             <x-checkbox class="h-30px w-30px" name="permissions[]" value="departments.view" is-checked="{{ in_array('departments.view', $permissions, false) }}">
-                                                                <span class="form-check-label">Create</span>
+                                                                <span class="form-check-label">view</span>
                                                             </x-checkbox>
                                                         </label>
                                                         <label class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
@@ -70,7 +70,7 @@
                                                     <div class="d-flex">
                                                         <label class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
                                                             <x-checkbox class="h-30px w-30px" name="permissions[]" value="courses.view" is-checked="{{ in_array('courses.view', $permissions, false) }}">
-                                                                <span class="form-check-label">Create</span>
+                                                                <span class="form-check-label">view</span>
                                                             </x-checkbox>
                                                         </label>
                                                         <label class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
@@ -97,7 +97,7 @@
                                                     <div class="d-flex">
                                                         <label class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
                                                             <x-checkbox class="h-30px w-30px" name="permissions[]" value="semesters.view" is-checked="{{ in_array('semesters.view', $permissions, false) }}">
-                                                                <span class="form-check-label">Create</span>
+                                                                <span class="form-check-label">view</span>
                                                             </x-checkbox>
                                                         </label>
                                                         <label class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
@@ -185,7 +185,7 @@
                                                     <div class="d-flex">
                                                         <label class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
                                                             <x-checkbox class="h-30px w-30px settings_all" name="permissions[]" value="roles.view" is-checked="{{ in_array('roles.view', $permissions, false) }}">
-                                                                <span class="form-check-label">Create</span>
+                                                                <span class="form-check-label">view</span>
                                                             </x-checkbox>
                                                         </label>
                                                         <label class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
@@ -212,7 +212,7 @@
                                                     <div class="d-flex">
                                                         <label class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
                                                             <x-checkbox class="h-30px w-30px settings_all" name="permissions[]" value="sections.view" is-checked="{{ in_array('sections.view', $permissions, false) }}">
-                                                                <span class="form-check-label">Create</span>
+                                                                <span class="form-check-label">view</span>
                                                             </x-checkbox>
                                                         </label>
                                                         <label class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">

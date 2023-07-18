@@ -5,7 +5,7 @@
         @csrf
         <div class="text-center mb-11">
             <h1 class="text-dark fw-bolder mb-3">Sign In</h1>
-            <div class="text-gray-500 fw-semibold fs-6">Your Social Campaigns</div>
+            <div class="text-gray-500 fw-semibold fs-6">Login to your portal</div>
         </div>
         <div class="fv-row mb-8">
             <input type="email" id="email"

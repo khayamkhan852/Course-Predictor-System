@@ -27,7 +27,7 @@ class DepartmentController extends Controller
      */
     public function index(): View
     {
-        $departments = Department::all();
+        $departments = Department::get();
         return view('department.index', compact('departments'));
     }
 
