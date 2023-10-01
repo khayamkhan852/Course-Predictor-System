@@ -141,20 +141,20 @@ class RoleController extends Controller
         }
 
         $role = Role::findOrFail($id);
-        $request->validate([
-            'role_name' => [
-                'required',
-                'string',
-                'max:191',
-                Rule::unique('roles', 'name')->ignore($id)
-            ]
-        ]);
+//        $request->validate([
+//            'role_name' => [
+//                'required',
+//                'string',
+//                'max:191',
+//                Rule::unique('roles', 'name')->ignore($id)
+//            ]
+//        ]);
 
         $output = false;
         try {
             DB::beginTransaction();
 
-            $role->update(['name' => $request->input('role_name')]);
+            //$role->update(['name' => $request->input('role_name')]);
             $permissionService->createPermissionIfNotExists($request->input('permissions'));
             $role->syncPermissions($request->input('permissions'));
             DB::commit();

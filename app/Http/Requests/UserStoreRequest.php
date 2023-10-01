@@ -28,6 +28,7 @@ class UserStoreRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'reg_number' => ['nullable', 'string', 'unique:users,reg_number'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'role' => ['required'],
             'user_avatar' => ['nullable', 'image', 'mimes:jpg,png,jpeg', 'max:2048'],

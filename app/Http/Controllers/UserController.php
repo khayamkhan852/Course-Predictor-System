@@ -75,10 +75,12 @@ class UserController extends Controller
             $user = User::create([
                 'name' => $request->input('name'),
                 'email' => $request->input('email'),
+                'reg_number' => $request->input('reg_number'),
                 'department_id' => $request->input('department_id'),
                 'user_id' => auth()->id(),
                 'password' => Hash::make($request->input('password')),
             ]);
+
             if ($request->hasFile('user_avatar')) {
                 $user->addMediaFromRequest('user_avatar')->toMediaCollection('users');
             }
@@ -151,6 +153,10 @@ class UserController extends Controller
                 'required', 'string', 'email', 'max:255',
                 Rule::unique('users', 'email')->ignore($user->id)
             ],
+            'reg_number' => [
+                'nullable', 'string',
+                Rule::unique('users', 'reg_number')->ignore($user->id)
+            ],
             'user_avatar' => ['nullable', 'image', 'mimes:jpg,png,jpeg', 'max:2048'],
             'role' => $user->id !== 1 ? ['required', 'numeric'] : '',
         ]);
@@ -160,6 +166,7 @@ class UserController extends Controller
 
             $user->update([
                 'name' => $request->input('name'),
+                'reg_number' => $request->input('reg_number'),
                 'email' => $request->input('email'),
                 'department_id' => $request->input('department_id'),
             ]);

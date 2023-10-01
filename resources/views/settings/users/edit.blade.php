@@ -68,6 +68,15 @@
                                     @enderror
                                 </div>
                             </div>
+                            <div class="row">
+                                <div class="col-12 mb-10">
+                                    <x-label for="reg_number">Registration Number</x-label>
+                                    <x-input id="reg_number" type="text" name="reg_number" value="{{ old('reg_number') ?: $user->reg_number }}" placeholder="Registration Number" />
+                                    @error('reg_number')
+                                        <x-error>{{ $message }}</x-error>
+                                    @enderror
+                                </div>
+                            </div>
                             <x-button class="btn-primary">Update {{ $user->name }}</x-button>
 
                         </form>

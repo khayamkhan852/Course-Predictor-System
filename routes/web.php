@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\CourseRegistrationController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\DropZoneFileController;
@@ -31,10 +32,6 @@ Route::middleware(['auth'])->group(function () {
     });
 
     Route::resource('departments', DepartmentController::class);
-
-    Route::prefix('courses')->name('courses.')->group(function () {
-
-    });
     Route::resource('courses', CourseController::class);
 
     Route::prefix('semesters')->name('semesters.')->group(function () {
@@ -42,6 +39,12 @@ Route::middleware(['auth'])->group(function () {
         Route::put('{semester}/assign/courses', [SemesterController::class, 'assignCourses'])->name('assign.courses');
     });
     Route::resource('semesters', SemesterController::class);
+
+    // course registration routes
+    Route::prefix('course-registrations')->name('course-registrations.')->group(function () {
+
+    });
+    Route::resource('course-registrations', CourseRegistrationController::class);
 });
 
 

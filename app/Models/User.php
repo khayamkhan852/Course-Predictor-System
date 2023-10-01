@@ -28,6 +28,7 @@ class User extends Authenticatable implements HasMedia
     protected $fillable = [
         'name',
         'email',
+        'reg_number',
         'password',
         'department_id',
         'user_id'
@@ -68,6 +69,11 @@ class User extends Authenticatable implements HasMedia
     public function department(): BelongsTo
     {
         return $this->belongsTo(Department::class, 'department_id');
+    }
+
+    public function courseRegistrations(): HasMany
+    {
+        return $this->hasMany(CourseRegistration::class, 'student_id');
     }
 
     public function registerMediaConversions(Media $media = null): void

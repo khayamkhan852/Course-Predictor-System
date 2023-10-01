@@ -10,7 +10,6 @@
                     <div class="pb-10">
                         <form class="form w-100" action="{{ route('settings.users.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
-
                             <div class="row mb-10">
                                 <div class="col-12">
                                     <x-image-preloaded name="user_avatar" />
@@ -60,6 +59,15 @@
                                         @endforeach
                                     </x-select-two>
                                     @error('department_id')
+                                        <x-error>{{ $message }}</x-error>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 mb-10">
+                                    <x-label for="reg_number">Registration Number</x-label>
+                                    <x-input id="reg_number" type="text" name="reg_number" value="{{ old('reg_number') }}" placeholder="Registration Number" />
+                                    @error('reg_number')
                                         <x-error>{{ $message }}</x-error>
                                     @enderror
                                 </div>

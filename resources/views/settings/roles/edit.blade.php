@@ -14,8 +14,8 @@
 
                             <div class="fv-row mb-5">
                                 <x-label for="role_name" class="required">Role Name</x-label>
-                                <x-input class="form-control-solid {{ $errors -> has('role_name') ? 'is-invalid' : '' }}"
-                                         id="role_name" name="role_name" value="{{old('role_name') ?: $role->name }}" placeholder="Role Name" autofocus required />
+                                <x-input class="form-control-solid {{ $errors->has('role_name') ? 'is-invalid' : '' }}"
+                                         id="role_name" name="role_name" value="{{ old('role_name') ?: $role->name }}" placeholder="Role Name" autofocus readonly />
                                 @error('role_name')
                                     <x-error>{{ $message }}</x-error>
                                 @enderror
@@ -125,6 +125,40 @@
                                                         <label class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
                                                             <x-checkbox class="h-30px w-30px" name="permissions[]" value="semesters.assign_courses" is-checked="{{ in_array('semesters.assign_courses', $permissions, false) }}">
                                                                 <span class="form-check-label">Assign Courses</span>
+                                                            </x-checkbox>
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-gray-800">Course Registration</td>
+                                                <td>
+                                                    <div class="d-flex">
+                                                        <label class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
+                                                            <x-checkbox class="h-30px w-30px" name="permissions[]" value="course_registration.view" is-checked="{{ in_array('course_registration.view', $permissions, false) }}">
+                                                                <span class="form-check-label">View</span>
+                                                            </x-checkbox>
+                                                        </label>
+                                                        <label class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
+                                                            <x-checkbox class="h-30px w-30px" name="permissions[]" value="course_registration.create" is-checked="{{ in_array('course_registration.create', $permissions, false) }}">
+                                                                <span class="form-check-label">Can Register Courses</span>
+                                                            </x-checkbox>
+                                                        </label>
+                                                        <label class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
+                                                            <x-checkbox class="h-30px w-30px" name="permissions[]" value="course_registration.update" is-checked="{{ in_array('course_registration.update', $permissions, false) }}">
+                                                                <span class="form-check-label">Can Edit Course Registration</span>
+                                                            </x-checkbox>
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-gray-800">Course Registration</td>
+                                                <td>
+                                                    <div class="d-flex">
+                                                        <label class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
+                                                            <x-checkbox class="h-30px w-30px" name="permissions[]" value="course_registration.delete" is-checked="{{ in_array('course_registration.delete', $permissions, false) }}">
+                                                                <span class="form-check-label">Can Delete Registered Courses</span>
                                                             </x-checkbox>
                                                         </label>
                                                     </div>
