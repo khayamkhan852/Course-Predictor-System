@@ -5,6 +5,7 @@ use App\Http\Controllers\CourseRegistrationController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\DropZoneFileController;
+use App\Http\Controllers\GeneralDataController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SectionController;
 use App\Http\Controllers\SemesterController;
@@ -15,6 +16,11 @@ require __DIR__.'/auth.php';
 
 // Authenticated Routes
 Route::middleware(['auth'])->group(function () {
+    // fetching general data
+    Route::prefix('get/')->name('get.')->group(function () {
+       Route::get('semesters/department/{department_id}', [GeneralDataController::class, 'getSemestersWithCoursesByDepartmentId'])->name('semesters.by.department');
+    });
+
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 
     // dropzone routes

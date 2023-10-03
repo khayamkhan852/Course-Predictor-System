@@ -62,11 +62,45 @@ class CourseRegistrationController extends Controller
     {
         abort_if(! auth()->user()->can('course_registration.create'), '403', 'Unauthorized Action.');
 
+        $request->validate([
+            'student_id' => ['required'],
+            'department_id' => ['required'],
+        ]);
+
+        if (! $request->has('semesterData')) {
+            alert()->warning('Warning', 'No Course Select, Select a course');
+            return redirect()->back();
+        }
+
+        foreach ($request->input('semesterData') as $semester) {
+            if (empty($semester['courses'])) {
+                alert()->warning('Warning', 'No Courses in Some Semesters');
+                return redirect()->back();
+            }
+        }
+
         $output = false;
         try {
             DB::beginTransaction();
 
-            // store code goes here
+            $courseRegistration = CourseRegistration::create([
+                'student_id' => $request->input('student_id'),
+                'created_by' => auth()->id(),
+            ]);
+
+            foreach ($request->input('semesterData') as $semester) {
+                $registrationSemester = $courseRegistration->registrationSemesters()->create([
+                    'semester_id' => $semester['semester_id']
+                ]);
+
+                foreach ($semester['courses'] as $course) {
+                    $registrationSemester->registrationSemesterCourses()->create([
+                        'registration_id' => $courseRegistration->id,
+                        'course_id' => $course['course_id']
+                    ]);
+                }
+
+            }
 
             DB::commit();
             $output = true;
@@ -75,11 +109,11 @@ class CourseRegistrationController extends Controller
         }
 
         if ($output) {
-            alert()->success('title', 'description');
-            return redirect()->route('');
+            alert()->success('Success', 'Courses Registered Successfully');
+            return redirect()->route('course-registrations.index');
         }
-        alert()->success('title', 'description');
-        return redirect()->route('');
+        alert()->success('something went wrong', 'Please Try again');
+        return redirect()->route('course-registrations.index');
     }
 
     /**
