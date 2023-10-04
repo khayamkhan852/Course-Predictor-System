@@ -69,7 +69,7 @@
 
 @section('javascript')
     <script>
-        function deleteFunction(id, name) {
+        function deleteFunction(id) {
             if (confirm('Do you want to delete this Registration') === true) {
                 $('#deleteForm' + id).submit();
             }

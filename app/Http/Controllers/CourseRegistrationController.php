@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\CourseRegistration;
+use App\Models\RegistrationSemester;
+use App\Models\RSemesterCourse;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -201,7 +203,13 @@ class CourseRegistrationController extends Controller
         $output = false;
         try {
             DB::beginTransaction();
-            // delete code goes here
+
+            $registeredCourse = CourseRegistration::where('id', $id)->firstOrFail();
+            RegistrationSemester::where('registration_id', $id)->delete();
+            RSemesterCourse::where('registration_id', $id)->delete();
+
+            $registeredCourse->delete();
+
             DB::commit();
             $output = true;
         } catch (\Exception|\error $error) {
@@ -209,10 +217,10 @@ class CourseRegistrationController extends Controller
         }
 
         if ($output) {
-            alert()->success('title', 'description');
-            return redirect()->route('');
+            alert()->success('Success', 'Course Registration Deleted Successfully');
+            return redirect()->route('course-registrations.index');
         }
-        alert()->success('title', 'description');
-        return redirect()->route('');
+        alert()->success('something went wrong', 'Please Try again');
+        return redirect()->route('course-registrations.index');
     }
 }
