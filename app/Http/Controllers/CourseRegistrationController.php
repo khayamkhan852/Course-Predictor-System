@@ -126,7 +126,22 @@ class CourseRegistrationController extends Controller
     {
         abort_if(! auth()->user()->can('course_registration.view'), '403', 'Unauthorized Action.');
 
-        return view('', compact());
+        $registeredCourses = CourseRegistration::with([
+            'student' => function ($query) {
+                $query->with('department:id,name')->select(['id', 'name', 'department_id', 'reg_number']);
+            },
+            'registrationSemesters' => function ($query) {
+                $query->with([
+                    'semester:id,name,year,total_credit_hours',
+                    'registrationSemesterCourses' => function ($query) {
+                        $query->with('course:id,title,code,credit_hours');
+                    }
+                ]);
+            }
+        ])->where('id', $id)->firstOrFail();
+
+
+        return view('registrations.show', compact('registeredCourses'));
     }
 
     /**
