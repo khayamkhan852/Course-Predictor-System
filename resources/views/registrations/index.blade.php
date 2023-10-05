@@ -18,7 +18,7 @@
                                     <th scope="col" class="text-center">Reg Number</th>
                                     <th scope="col" class="text-center">Total Courses</th>
                                     <th scope="col" class="text-center">Department</th>
-                                    @if(auth()->user()->can('course_registration.update') || auth()->user()->can('course_registration.delete'))
+                                    @if(auth()->user()->can('course_registration.delete'))
                                         <th scope="col" class="text-center">Action</th>
                                     @endif
                                 </tr>
@@ -30,7 +30,7 @@
                                         <td class="text-center">{{ $registration->student->reg_number}}</td>
                                         <td class="text-center">{{ $registration->registration_semester_courses_count }}</td>
                                         <td class="text-center">{{ $registration->student->department->name}}</td>
-                                        @if(auth()->user()->can('course_registration.update') || auth()->user()->can('course_registration.delete'))
+                                        @if(auth()->user()->can('course_registration.delete'))
                                             <td class="text-center">
                                                 <a href="#" class="btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
                                                     <span class="svg-icon svg-icon-5 m-0">
@@ -41,9 +41,6 @@
                                                 </a>
                                                 <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4" data-kt-menu="true" style="">
                                                     <div class="menu-item px-3"><a href="{{ route('course-registrations.show', [$registration->id]) }}" class="menu-link px-3">View</a></div>
-                                                    @can('course_registration.update')
-                                                        <div class="menu-item px-3"><a href="{{ route('semesters.edit', [$registration->id]) }}" class="menu-link px-3">Edit</a></div>
-                                                    @endcan
                                                     @can('course_registration.delete')
                                                         <div class="menu-item px-3">
                                                             <form method="POST" id="deleteForm{{$registration->id}}" action="{{ route('course-registrations.destroy', $registration->id) }}">
