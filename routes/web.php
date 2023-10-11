@@ -6,6 +6,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\DropZoneFileController;
 use App\Http\Controllers\GeneralDataController;
+use App\Http\Controllers\ResultController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SectionController;
 use App\Http\Controllers\SemesterController;
@@ -17,8 +18,10 @@ require __DIR__.'/auth.php';
 // Authenticated Routes
 Route::middleware(['auth'])->group(function () {
     // fetching general data
-    Route::prefix('get/')->name('get.')->group(function () {
-       Route::get('semesters/department/{department_id}', [GeneralDataController::class, 'getSemestersWithCoursesByDepartmentId'])->name('semesters.by.department');
+    Route::prefix('get')->controller(GeneralDataController::class)->name('get.')->group(function () {
+       Route::get('semesters/department/{department_id}', 'getSemestersWithCoursesByDepartmentId')->name('semesters.by.department');
+       Route::get('semesters/students/{student_id}', 'getSemesterOfStudent')->name('semesters.student.id');
+       Route::get('courses/semesters/{semester_id}/student/{student_id}', 'getCoursesOfSemesterOfStudent')->name('courses.semesters.student.id');
     });
 
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
@@ -34,7 +37,6 @@ Route::middleware(['auth'])->group(function () {
         Route::post('users/{user}/reset-password', [UserController::class, 'postResetPassword'])->name('users.post.reset-password');
         Route::resource('users', UserController::class);
         Route::resource('sections', SectionController::class)->except(['show']);
-
     });
 
     Route::resource('departments', DepartmentController::class);
@@ -47,10 +49,12 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('semesters', SemesterController::class);
 
     // course registration routes
-    Route::prefix('course-registrations')->name('course-registrations.')->group(function () {
-
-    });
     Route::resource('course-registrations', CourseRegistrationController::class);
+
+    Route::prefix('results')->name('results.')->group(function () {
+        Route::get('students/{student_id}', [ResultController::class, 'showStudentOverAllResult'])->name('show.student.over.all');
+    });
+    Route::resource('results', ResultController::class);
 });
 
 

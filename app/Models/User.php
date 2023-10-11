@@ -76,6 +76,11 @@ class User extends Authenticatable implements HasMedia
         return $this->hasMany(CourseRegistration::class, 'student_id');
     }
 
+    public function results(): HasMany
+    {
+        return $this->hasMany(Result::class, 'student_id');
+    }
+
     public function registerMediaConversions(Media $media = null): void
     {
         $this->addMediaConversion('thumb-250')->width(250)->height(250);

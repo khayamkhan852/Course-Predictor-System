@@ -16,7 +16,8 @@ class CreateResultsTable extends Migration
         Schema::create('results', function (Blueprint $table) {
             $table->id();
             $table->foreignId('student_id')->constrained('users');
-            $table->string('cgpa');
+            $table->foreignId('semester_id')->constrained('semesters');
+            $table->string('cgpa')->nullable();
             $table->timestamps();
         });
     }

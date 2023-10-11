@@ -26,6 +26,10 @@
                                 <p>{{ $user->email }}</p>
                             </div>
                             <div class="col-sm-12 col-md-3 col-xl-3 col-lg-3 mb-10">
+                                <x-label for="reg_number">Registration Number</x-label>
+                                <p>{{ $user->reg_number ?? '----' }}</p>
+                            </div>
+                            <div class="col-sm-12 col-md-3 col-xl-3 col-lg-3 mb-10">
                                 <x-label for="user_type_id">User Role</x-label> <br>
                                 @foreach($user->roles as $role)
                                     <div class="badge badge-light-success fw-bold">{{ $role->name }}</div>

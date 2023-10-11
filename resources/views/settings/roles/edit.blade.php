@@ -145,20 +145,30 @@
                                                             </x-checkbox>
                                                         </label>
                                                         <label class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
-                                                            <x-checkbox class="h-30px w-30px" name="permissions[]" value="course_registration.update" is-checked="{{ in_array('course_registration.update', $permissions, false) }}">
-                                                                <span class="form-check-label">Can Edit Course Registration</span>
+                                                            <x-checkbox class="h-30px w-30px" name="permissions[]" value="course_registration.delete" is-checked="{{ in_array('course_registration.delete', $permissions, false) }}">
+                                                                <span class="form-check-label">Can Delete Registered Courses</span>
                                                             </x-checkbox>
                                                         </label>
                                                     </div>
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td class="text-gray-800">Course Registration</td>
+                                                <td class="text-gray-800">Results</td>
                                                 <td>
                                                     <div class="d-flex">
                                                         <label class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
-                                                            <x-checkbox class="h-30px w-30px" name="permissions[]" value="course_registration.delete" is-checked="{{ in_array('course_registration.delete', $permissions, false) }}">
-                                                                <span class="form-check-label">Can Delete Registered Courses</span>
+                                                            <x-checkbox class="h-30px w-30px" name="permissions[]" value="results.view" is-checked="{{ in_array('results.view', $permissions, false) }}">
+                                                                <span class="form-check-label">View</span>
+                                                            </x-checkbox>
+                                                        </label>
+                                                        <label class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
+                                                            <x-checkbox class="h-30px w-30px" name="permissions[]" value="results.create" is-checked="{{ in_array('results.create', $permissions, false) }}">
+                                                                <span class="form-check-label">Can Generate Results</span>
+                                                            </x-checkbox>
+                                                        </label>
+                                                        <label class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
+                                                            <x-checkbox class="h-30px w-30px" name="permissions[]" value="results.delete" is-checked="{{ in_array('results.delete', $permissions, false) }}">
+                                                                <span class="form-check-label">Can Delete Results</span>
                                                             </x-checkbox>
                                                         </label>
                                                     </div>

@@ -17,7 +17,6 @@ class CreateResultCoursesTable extends Migration
             $table->id();
             $table->foreignId('result_id')->constrained('results');
             $table->foreignId('course_id')->constrained('courses');
-            $table->foreignId('semester_id')->constrained('semesters');
             $table->string('grade');
             $table->string('gpa');
             $table->timestamps();

@@ -59,8 +59,12 @@ class PermissionSeeder extends Seeder
             // Course Registration
             ['name' => 'course_registration.view'],
             ['name' => 'course_registration.create'],
-            ['name' => 'course_registration.update'],
             ['name' => 'course_registration.delete'],
+
+            // Results
+            ['name' => 'results.view'],
+            ['name' => 'results.create'],
+            ['name' => 'results.delete'],
         ];
 
         $insert_data = [];

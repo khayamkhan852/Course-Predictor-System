@@ -70,7 +70,7 @@ class CourseRegistrationController extends Controller
         ]);
 
         if (! $request->has('semesterData')) {
-            alert()->warning('Warning', 'No Course Select, Select a course');
+            alert()->warning('Warning', 'No Course Selected, Select a course');
             return redirect()->back();
         }
 
@@ -114,7 +114,7 @@ class CourseRegistrationController extends Controller
             alert()->success('Success', 'Courses Registered Successfully');
             return redirect()->route('course-registrations.index');
         }
-        alert()->success('something went wrong', 'Please Try again');
+        alert()->error('something went wrong', 'Please Try again');
         return redirect()->route('course-registrations.index');
     }
 
