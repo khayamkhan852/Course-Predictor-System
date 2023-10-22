@@ -224,4 +224,16 @@ class ResultController extends Controller
         alert()->success('something went wrong', 'Please Try again');
         return redirect()->route('results.index');
     }
+
+    public function checkPassFailSubjects()
+    {
+        $results = Result::with([
+            'resultCourses' => function ($query) {
+                $query->where('grade', 'F')->with('course:id,title,code,credit_hours');
+            }
+        ])->where('student_id', auth()->id())->get();
+
+
+        return view('results.pass_fail', compact('results'));
+    }
 }

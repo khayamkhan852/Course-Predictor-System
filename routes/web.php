@@ -55,6 +55,8 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('results')->name('results.')->group(function () {
         Route::get('students/{student_id}', [ResultController::class, 'showStudentOverAllResult'])->name('show.student.over.all');
     });
+    Route::get('check-fail-subjects', [ResultController::class, 'checkPassFailSubjects'])->name('check-fail-subjects');
+
     Route::resource('results', ResultController::class);
     Route::resource('probations', ProbationController::class)->except(['destroy', 'edit', 'show', 'update']);
 });
