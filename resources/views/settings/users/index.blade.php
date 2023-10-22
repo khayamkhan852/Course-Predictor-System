@@ -17,7 +17,6 @@
                                 <tr class="fw-bold fs-6 text-gray-800 px-7">
                                     <th scope="col">User</th>
                                     <th scope="col" class="text-center">Role</th>
-                                    <th scope="col" class="text-center">verified</th>
                                     <th scope="col" class="text-center">Joined Date</th>
                                     <th scope="col" class="text-center">Action</th>
                                 </tr>
@@ -42,13 +41,6 @@
                                             @foreach($user->roles as $role)
                                                 <div class="badge badge-light-success fw-bold">{{ $role->name }}</div>
                                             @endforeach
-                                        </td>
-                                        <td class="text-center">
-                                            @if($user->hasVerifiedEmail())
-                                                <div class="badge badge-light-success fw-bold">Verified</div>
-                                            @else
-                                                <div class="badge badge-light-danger fw-bold">Non Verified</div>
-                                            @endif
                                         </td>
                                         <td class="text-center">{{ $user->created_at->format('d/m/Y') }}</td>
                                         @if(auth()->user()->can('user.delete') || auth()->user()->can('user.update') || auth()->user()->can('user.reset.password'))
