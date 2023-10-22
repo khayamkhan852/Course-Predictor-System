@@ -173,6 +173,23 @@
                                                 </td>
                                             </tr>
                                             <tr>
+                                                <td class="text-gray-800">Probation</td>
+                                                <td>
+                                                    <div class="d-flex">
+                                                        <label class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
+                                                            <x-checkbox class="h-30px w-30px" name="permissions[]" value="probation.view">
+                                                                <span class="form-check-label">View</span>
+                                                            </x-checkbox>
+                                                        </label>
+                                                        <label class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
+                                                            <x-checkbox class="h-30px w-30px" name="permissions[]" value="probation.create">
+                                                                <span class="form-check-label">Can Check Probation</span>
+                                                            </x-checkbox>
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
                                                 <td> <label class="fs-5 fw-bold form-label mb-2 mt-3 text-primary">Settings</label></td>
                                                 <td>
                                                     <div class="form-check form-check-custom form-check-primary form-check-solid me-10">

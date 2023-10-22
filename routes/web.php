@@ -6,6 +6,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\DropZoneFileController;
 use App\Http\Controllers\GeneralDataController;
+use App\Http\Controllers\ProbationController;
 use App\Http\Controllers\ResultController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SectionController;
@@ -55,6 +56,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('students/{student_id}', [ResultController::class, 'showStudentOverAllResult'])->name('show.student.over.all');
     });
     Route::resource('results', ResultController::class);
+    Route::resource('probations', ProbationController::class)->except(['destroy', 'edit', 'show', 'update']);
 });
 
 

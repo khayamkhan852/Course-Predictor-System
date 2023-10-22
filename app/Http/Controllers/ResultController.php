@@ -149,6 +149,7 @@ class ResultController extends Controller
 
         $cgpa = $results->average('cgpa');
 
+
         return view('results.overall', compact('results', 'cgpa'));
     }
 

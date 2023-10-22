@@ -65,6 +65,9 @@ class PermissionSeeder extends Seeder
             ['name' => 'results.view'],
             ['name' => 'results.create'],
             ['name' => 'results.delete'],
+
+            ['name' => 'probation.view'],
+            ['name' => 'probation.create'],
         ];
 
         $insert_data = [];
