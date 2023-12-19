@@ -22,5 +22,12 @@ class UserSeeder extends Seeder
         ]);
 
         $admin->assignRole('Super Admin');
+
+
+        // check grades of compulsory if F show then this course must by taken
+        // check the elective, of F then show the elective must take
+        // compulsory check if grade C less then show the those subjets
+        // same above step
+
     }
 }

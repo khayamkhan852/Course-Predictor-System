@@ -13,6 +13,7 @@ class Course extends Model
     protected $fillable = [
         'code',
         'title',
+        'is_compulsory', // yes, no
         'credit_hours',
         'course_level', // BS, MS, PhD
         'coordinator_id', // from users, coordinator id foreign key
@@ -26,7 +27,7 @@ class Course extends Model
     }
 
 
-    final public function pre_requisite_course(): BelongsTo
+    public function pre_requisite_course(): BelongsTo
     {
         return $this->belongsTo(__CLASS__, 'course_id')->withDefault([
             'code' => 'none',
@@ -57,6 +58,16 @@ class Course extends Model
     public function resultCourses(): HasMany
     {
         return $this->hasMany(ResultCourse::class, 'course_id');
+    }
+
+    public function scopeIsCompulsory($query)
+    {
+        return $query->where('is_compulsory', 'yes');
+    }
+
+    public function scopeIsNotCompulsory($query)
+    {
+        return $query->where('is_compulsory', 'no');
     }
 
 }

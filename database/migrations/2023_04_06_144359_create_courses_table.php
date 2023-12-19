@@ -17,6 +17,7 @@ class CreateCoursesTable extends Migration
             $table->id();
             $table->string('code');
             $table->string('title');
+            $table->string('is_compulsory');
             $table->unsignedInteger('credit_hours');
             $table->enum('course_level', ['BS', 'MS', 'PhD'])->default('BS');
             $table->foreignId('coordinator_id')->nullable()->constrained('users');

@@ -7,6 +7,7 @@ use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\DropZoneFileController;
 use App\Http\Controllers\GeneralDataController;
 use App\Http\Controllers\ProbationController;
+use App\Http\Controllers\RecommendationController;
 use App\Http\Controllers\ResultController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SectionController;
@@ -59,6 +60,11 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resource('results', ResultController::class);
     Route::resource('probations', ProbationController::class)->except(['destroy', 'edit', 'show', 'update']);
+
+    // recommendation of courses
+    Route::get('recommendations/index', [RecommendationController::class, 'index'])->name('recommendations.index');
+    Route::get('recommendations/check', [RecommendationController::class, 'checkRecommendation'])->name('recommendations.check');
+
 });
 
 

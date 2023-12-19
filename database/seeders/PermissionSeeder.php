@@ -68,6 +68,7 @@ class PermissionSeeder extends Seeder
 
             ['name' => 'probation.view'],
             ['name' => 'probation.create'],
+
         ];
 
         $insert_data = [];

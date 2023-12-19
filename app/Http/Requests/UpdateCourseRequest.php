@@ -26,6 +26,7 @@ class UpdateCourseRequest extends FormRequest
         return [
             'code' => ['required', 'string'],
             'title' => ['required', 'string'],
+            'is_compulsory' => ['required'],
             'credit_hours' => ['required', 'numeric', 'min:1'],
             'department_id' => ['required', 'numeric'],
             'course_id' => ['nullable', 'numeric'],

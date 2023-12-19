@@ -88,6 +88,17 @@
                                         <x-error>{{ $message }}</x-error>
                                     @enderror
                                 </div>
+                                <div class="col-sm-12 col-md-6 col-xl-6 col-lg-6 mb-10">
+                                    <x-label for="is_compulsory" class="required">Is Compulsory</x-label>
+                                    <x-select-two name="is_compulsory" id="is_compulsory" message="Select Yes if compulsory">
+                                        <option value=""></option>
+                                        <option value="yes" {{ old('is_compulsory') == 'yes' ? 'selected' : ''}}>Yes</option>
+                                        <option value="no" {{ old('is_compulsory') == 'no' ? 'selected' : ''}}>No</option>
+                                    </x-select-two>
+                                    @error('is_compulsory')
+                                        <x-error>{{ $message }}</x-error>
+                                    @enderror
+                                </div>
                             </div>
 
                             @foreach($sections as $key => $section)
